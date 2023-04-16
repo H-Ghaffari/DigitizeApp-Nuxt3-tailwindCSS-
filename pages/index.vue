@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-400 h-screen">
+    <!-- <div class="bg-gray-400 h-screen">
         <div class="container mx-auto xl:max-w-screen-xl">
             <div class="grid grid-cols-1 gap-y-4 md:grid-cols-12 md:gap-8 grid-rows-[60px_minmax(500px,_1fr)]">
                 <div class="bg-white p-4 hidden md:block col-span-2 row-span-2">sidbar</div>
@@ -14,7 +14,8 @@
                     nobis nihil maxime. Illum dignissimos porro vel?</div>
             </div>
         </div>
-    </div>
+    </div> -->
+    <DropDown></DropDown>
 </template>
 <script>
 </script>
