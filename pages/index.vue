@@ -15,7 +15,8 @@
             </div>
         </div>
     </div> -->
-    <DropDown></DropDown>
+    <DropDown :list_items="list_items" title="show more" color="bg-red-500"></DropDown>
 </template>
-<script>
+<script setup>
+const list_items = ['Account', 'Support', 'Settings'];
 </script>
