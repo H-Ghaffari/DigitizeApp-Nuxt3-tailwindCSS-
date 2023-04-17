@@ -15,8 +15,16 @@
             </div>
         </div>
     </div> -->
-    <DropDown :list_items="list_items" title="show more" color="bg-red-500"></DropDown>
+    <DropDown :list_items="list_items" title="show more" color="bg-pink-500"></DropDown>
+    <!-- <RadioGroup></RadioGroup> -->
 </template>
+
+<!--DropDown-->
 <script setup>
 const list_items = ['Account', 'Support', 'Settings'];
 </script>
+
+<!--RadioGroup-->
+<!-- <script setup>
+
+</script> -->
