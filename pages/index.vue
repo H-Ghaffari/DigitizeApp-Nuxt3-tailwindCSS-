@@ -18,7 +18,10 @@
     <!-- <DropDown :list_items="list_items" title="show more" color="bg-pink-500"></DropDown> -->
     <!-- <RadioGroup></RadioGroup> -->
     <!-- <Disclosure></Disclosure> -->
-    <Tab></Tab>
+    <!-- <Tab></Tab> -->
+    <h1 class="text-sm font-light">سلام</h1>
+    <h1 class="text-xl font-normal">سلام</h1>
+    <h1 class="text-xl font-bold">سلام</h1>
 </template>
 
 <!--DropDown-->
