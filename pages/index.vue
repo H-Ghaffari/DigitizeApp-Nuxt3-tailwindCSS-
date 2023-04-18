@@ -17,7 +17,8 @@
     </div> -->
     <!-- <DropDown :list_items="list_items" title="show more" color="bg-pink-500"></DropDown> -->
     <!-- <RadioGroup></RadioGroup> -->
-    <Disclosure></Disclosure>
+    <!-- <Disclosure></Disclosure> -->
+    <Tab></Tab>
 </template>
 
 <!--DropDown-->
