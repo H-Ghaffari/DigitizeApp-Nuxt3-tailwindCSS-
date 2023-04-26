@@ -45,12 +45,41 @@
                 <span class="font-normal text-slate-800 text-sm">فیلتر:اپل</span>
             </div>
         </div>
-        <!--products-->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-6 pt-5">
-            <!--1-->
-            <!--single product-->
-            <product :productObj="productInstance"></product>
-
+        <div class="grid grid-cols-12 md:grid-rows-[55px_minmax(500px,_1fr)] gap-4">
+            <!--sidbar-->
+            <div class="col-span-3 row-span-2 hidden md:block">
+                <div class="bg-white rounded-xl"></div>
+            </div>
+            <!--desktop sort bar-->
+            <div class="hidden md:block col-span-9">
+                <div class=" bg-white h-full flex px-2 items-center gap-x-6 text-gray-400 rounded-md">
+                    <!--sort icon-->
+                    <div class="bg-orange-100 rounded-md p-2 flex justify-center items-center -ml-3 -mr-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            class="w-7 h-7 stroke-orange-400">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0l-3.75-3.75M17.25 21L21 17.25" />
+                        </svg>
+                    </div>
+                    <DesktopSortTabItem @click="sortTab = 1" :active="sortTab === 1" title="محبوب ترین">
+                    </DesktopSortTabItem>
+                    <DesktopSortTabItem @click="sortTab = 2" :active="sortTab === 2" title="گران ترین">
+                    </DesktopSortTabItem>
+                    <DesktopSortTabItem @click="sortTab = 3" :active="sortTab === 3" title="ارزان ترین">
+                    </DesktopSortTabItem>
+                    <DesktopSortTabItem @click="sortTab = 4" :active="sortTab === 4" title="پربازدید ترین">
+                    </DesktopSortTabItem>
+                </div>
+            </div>
+            <!--products-->
+            <div class="md:col-span-9 col-span-12"> <!--products-->
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-6 pt-5 sm:gap-x-4 sm:gap-y-8">
+                    <!--single product-->
+                    <template v-for="(item, index) in productsArray" :key="index">
+                        <product :productObj="item"></product>
+                    </template>
+                </div>
+            </div>
         </div>
     </div><!--body-->
 
@@ -90,6 +119,7 @@ const list_items = ['Account', 'Support', 'Settings'];
 <!--digirize App-->
 <script setup>
 import { numberFormat } from "~/helpers/formatHelper";
+const sortTab = ref(1);
 // const selectedColor = ref('slate');
 const productInstance = {
     colors: ['#4f46e5', '#facc15', '#fb923c', '#0f172a'],
@@ -99,4 +129,6 @@ const productInstance = {
     title: 'ساعت هوشمند اپل سر 6',
     price: 148632659,
 }
+
+const productsArray = [productInstance, productInstance, productInstance, productInstance, productInstance, productInstance]
 </script>

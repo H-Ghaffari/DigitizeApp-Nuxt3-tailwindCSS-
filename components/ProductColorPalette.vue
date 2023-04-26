@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center items-center h-7 sm:h-9">
-        <template v-for="(color, index) in colors" :key="color.index">
+        <template v-for="(color, index) in colors" :key="index">
             <!-- :class="bgColor[index]" -->
             <!-- :style="handleColor(index)" -->
             <!-- <div @click="selectedColor = color" :style="{ 'background-color': color }" -->
