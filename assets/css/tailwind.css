@@ -3,8 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
 #__nuxt {
     /* @apply flex-1 flex justify-center; */
     /* @apply flex-auto flex justify-center items-center h-screen; */
-    @apply flex-auto flex justify-center h-full;
+    @apply flex-auto flex flex-col relative bg-stone-100 justify-center h-full;
 }

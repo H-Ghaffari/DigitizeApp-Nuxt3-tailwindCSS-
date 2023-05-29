@@ -8,10 +8,22 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
+  "overrides": {
+    "vue": "latest"
+  },
   "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.14",
     "nuxt": "^3.4.1",
     "postcss": "^8.4.21",
+    "sass": "^1.62.1",
     "tailwindcss": "^3.3.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "@pinia/nuxt": "^0.4.10",
+    "pinia": "^2.0.36",
+    "vue-toastification": "^2.0.0-rc.5"
   }
 }

@@ -1,4 +1,112 @@
-    <!-- <buttton class="py-4 cursor-pointer relative">
-        <span> {{ title }}</span>
-        <!-- <span v-show="true" class="w-1.5 h-1.5 bg-orange-400 absolute -left-1 top-3 rounded-full"></span> -->
-    <!--</buttton> -->
+<style scoped>
+/* دو تا متغییر دلخواه تعریف کردیم */
+.custom-slider {
+    --trackHeight: 0.0625rem;
+    --thumbRadius: 0.75rem;
+}
+
+
+
+/* تا جای مین و مکس عوض شود */
+.custom-slider input[type="range"] {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+/* style the input element with type "range" */
+.custom-slider input[type="range"] {
+    /*کل استایلهایی که از قبل داره را پاک می کنه مثل خط بار*/
+    /* appearance: none; */
+    /* اگر دستور زیر را بنویسیم دایره اش حرکت نمی کند */
+    /* pointer-events: none; */
+}
+
+/******************* Webkit based browsers (Chrome, Safari, Opera) **********************/
+input[type=range]::-webkit-slider-runnable-track {
+    appearance: none;
+    background: v-bind(bgColor);
+    height: var(--trackHeight);
+    /* اگر دستور زیر را کامنت کنیم سر خط صاف می شود نه منحنی */
+    border-radius: 999px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    position: relative;
+    /* دو دستور زیر باعث می شود که وسط دایره روی خط بیفتد */
+    /* top: 50%;
+    transform: translate(0, -50%); */
+    width: var(--thumbRadius);
+    height: var(--thumbRadius);
+    /* margin-top: calc((var(--trackHeight) - var(--thumbRadius)) / 2); */
+    background: v-bind(color);
+    border-style: none;
+    border-radius: 999px;
+    pointer-events: all;
+    /* appearance: none; */
+    z-index: 1;
+}
+
+/**************************************** Firefox******************* */
+/* برای استایل دهی خط هست */
+.custom-slider input[type="range"]::-moz-range-track {
+    /* appearance: none; */
+    background: v-bind(bgColor);
+    height: var(--trackHeight);
+    /* اگر دستور زیر را کامنت کنیم سر خط صاف می شود نه منحنی */
+    border-radius: 999px;
+}
+
+.custom-slider input[type="range"]::-moz-range-thumb {
+    position: relative;
+    /* top: 50%; */
+    /* transform: translate(0, -50%); */
+    width: var(--thumbRadius);
+    height: var(--thumbRadius);
+    /* margin-top: calc((var(--trackHeight) - var(--thumbRadius)) / 2); */
+    background: v-bind(color);
+    border-style: none;
+    border-radius: 999px;
+    pointer-events: all;
+    /* appearance: none; */
+    z-index: 1;
+}
+
+/******************************* Internet Explorer 10+ ********************************/
+input[type=range]::-ms-track {
+    appearance: none;
+    height: var(--trackHeight);
+    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    background: transparent;
+    /*leave room for the larger thumb to overflow with a transparent border */
+    border-color: transparent;
+    border-width: 1px 0;
+    /*remove default tick marks*/
+    color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: v-bind(bgColor);
+    border-radius: 10px;
+}
+
+input[type=range]::-ms-fill-upper {
+    background: v-bind(bgColor);
+    border-radius: 10px;
+}
+
+input[type=range]::-ms-thumb {
+    border: none;
+    width: var(--thumbRadius);
+    height: var(--thumbRadius);
+    /* border-radius: 50%; */
+    background: v-bind(color);
+}
+
+/* .custom-slider input[type="range"]:focus::-moz-range-thumb {
+    border: 1px solid red;
+} */
+</style>

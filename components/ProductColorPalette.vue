@@ -6,9 +6,9 @@
             <!-- <div @click="selectedColor = color" :style="{ 'background-color': color }" -->
             <div @click="handleClick(color)" :style="{ 'background-color': color }"
                 :class="[{ '-mr-1.5': index > 0 }, { 'ring-2': selectedColor === color }]"
-                class="ringColor w-5 h-5 sm:w-7 sm:h-7 border-2 flex justify-center items-center border-white  rounded-full">
+                class="ringColor w-7 h-7 sm:max-md:w-9 sm:max-md:h-9 2xl:w-9 2xl:h-9 border-2 flex justify-center items-center border-white  rounded-full">
                 <svg v-show="selectedColor === color" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                    class="w-3 h-3 sm:w-5 sm:h-5 fill-white">
+                    class="w-5 h-5 fill-white">
                     <path fill-rule="evenodd"
                         d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
                         clip-rule="evenodd" />

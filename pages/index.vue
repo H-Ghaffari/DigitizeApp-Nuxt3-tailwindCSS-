@@ -1,8 +1,11 @@
 <template>
-    <div class="bg-stone-100 px-4 w-full">
+    <div class="bg-stone-100 w-full min-h-screen">
+        <!--desktop navbar-->
+        <DesktopNavbar></DesktopNavbar>
+
         <!--mobile app bar-->
-        <div class="md:hidden flex justify-between items-center mt-10 text-slate-800 mb-4">
-            <div>
+        <MobileAppBar title="ساعت هوشمند">
+            <template v-slot:icon>
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="42"
                     fill="none">
                     <path fill="url(#a)" d="M0 0h50v42H0z" />
@@ -15,20 +18,12 @@
                             id="b" width="839" height="544" />
                     </defs>
                 </svg>
-            </div>
-            <div class="font-bold text-xl text-slate-800">ساعت هوشمند</div>
-            <div class="rounded bg-white w-8 h-8 flex justify-center items-center shadow-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    class="w-6 h-6 stroke-slate-800">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
+            </template>
+        </MobileAppBar>
 
-            </div>
-        </div>
         <!--filter-sort mobile section-->
-        <div class="md:hidden flex gap-x-2 justify-center items-center mb-2">
-            <div class="bg-white rounded py-2 px-3 flex justify-start items-center gap-x-2 w-1/2">
+        <div class="container mx-auto md:hidden flex gap-x-2 justify-center items-center mb-2 px-2">
+            <div class="bg-white rounded py-2 px-3 flex justify-start items-center gap-x-2 flex-1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     class="w-6 h-6 stroke-orange-400">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -36,7 +31,8 @@
                 </svg>
                 <span class="font-normal text-slate-800 text-sm">محبوبترین </span>
             </div>
-            <div class="bg-white rounded py-2 px-3 flex justify-start items-center gap-x-2 w-1/2">
+            <div @click="showModal = true"
+                class="bg-white cursor-pointer rounded py-2 px-3 flex justify-start items-center gap-x-2 flex-1 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     class="w-6 h-6 stroke-gray-400">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -44,19 +40,95 @@
                 </svg>
                 <span class="font-normal text-slate-800 text-sm">فیلتر:اپل</span>
             </div>
+            <!--cart icon-->
+            <div class="bg-white pt-3 pb-1 pl-1 pr-4 rounded">
+                <NuxtLink :to="{ name: 'cart' }" class="flex justify-center relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-slate-800" viewBox="0 0 576 512">
+                        <path
+                            d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                    </svg>
+                    <div v-if="store.cart.length > 0"
+                        class="w-4 h-4 flex items-center justify-center bg-orange-500 rounded-full absolute -top-2 left-4 text-xs text-white font-medium">
+                        {{ numberFormat(store.cart.length) }}
+                    </div>
+                </NuxtLink>
+            </div>
         </div>
-        <div class="grid grid-cols-12 md:grid-rows-[55px_minmax(500px,_1fr)] gap-4">
+
+
+        <!-- sidbar and products -->
+        <div
+            class="container mx-auto 2xl:max-w-screen-2xl grid grid-cols-12 md:grid-rows-[55px_minmax(500px,_1fr)] 2xl:grid-rows-[60px_minmax(700px,_1fr)] gap-4 px-2 md:px-4 mb-5">
             <!--sidbar-->
-            <div class="col-span-3 row-span-2 hidden md:block">
-                <div class="bg-white rounded-xl"></div>
+            <div
+                class="md:max-h-[calc(100vh_-_140px)] overflow-y-auto sticky md:top-24 lg:top-28 col-span-3 row-span-2 hidden md:block">
+                <div class="bg-white rounded-xl md:p-2 lg:p-6">
+                    <!--categories-->
+                    <div class="mb-7 2xl:mb-9">
+                        <div class="text-orange-400 font-bold md:text-lg lg:text-xl 2xl:text-2xl mb-5">دسته بندی</div>
+                        <ul class="lg:px-2 md:px-1">
+                            <!--1-->
+                            <li class=" mb-1 2xl:mb-3">
+                                <a class="flex items-center text-slate-800 py-2 cursor-pointer hover:bg-gray-50 rounded-md">
+                                    <span class="w-5 h-5 rounded-full bg-gray-200 relative">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-5 absolute top-1.5 right-1.5"
+                                            fill="none" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.125"
+                                                d="M13 4.75v7.5c0 3-.75 3.75-3.75 3.75h-4.5c-3 0-3.75-.75-3.75-3.75v-7.5C1 1.75 1.75 1 4.75 1h4.5c3 0 3.75.75 3.75 3.75ZM8.5 3.625h-3" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.125"
+                                                d="M7 13.825A1.163 1.163 0 1 0 7 11.5a1.163 1.163 0 0 0 0 2.325Z" />
+                                        </svg>
+                                    </span>
+                                    <span class="mr-2 2xl:mr-3 md:text-base lg:text-lg 2xl:text-[22px]">تلفن همراه</span>
+                                </a>
+                            </li>
+                            <!--2-->
+                            <li class="mb-1 2xl:mb-3">
+                                <a
+                                    class="flex items-center text-slate-800 py-2 cursor-pointer hover:bg-gray-50 rounded-md ">
+                                    <span class="w-5 h-5 rounded-full bg-gray-200 relative">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-5 absolute top-1.5 right-1.5"
+                                            fill="none" stroke="currentColor">
+                                            <path stroke="#222F5D" stroke-linecap="round" stroke-linejoin="round"
+                                                d="M4.293 1.333H11.7c2.373 0 2.967.594 2.967 2.96v4.22c0 2.374-.594 2.96-2.96 2.96H4.293c-2.366.007-2.96-.586-2.96-2.953V4.294c0-2.367.594-2.96 2.96-2.96ZM8 11.48v3.187M1.333 8.666h13.334M5 14.666h6" />
+                                        </svg>
+                                    </span>
+                                    <span class="mr-2 2xl:mr-3 md:text-base lg:text-lg 2xl:text-[22px]">
+                                        لپ تاپ
+                                    </span>
+                                </a>
+                            </li>
+                            <!--3-->
+                            <li class=" ">
+                                <a class="flex items-center text-slate-800 py-2 cursor-pointer hover:bg-gray-50 rounded-md">
+                                    <span class="w-5 h-5 rounded-full bg-gray-200 relative">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-5 absolute top-1.5 right-1.5"
+                                            fill="none" stroke="currentColor">
+                                            <path stroke="#222F5D" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-miterlimit="10"
+                                                d="M5.666 12.667h4.667c1.553 0 2.333-.78 2.333-2.333V5.667c0-1.553-.78-2.333-2.333-2.333H5.666c-1.553 0-2.333.78-2.333 2.333v4.667c0 1.553.78 2.333 2.333 2.333ZM10.666 1.333H5.333M10.666 14.666H5.333" />
+                                            <path stroke="#222F5D" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-miterlimit="10" d="M7.667 6.333v2h2" />
+                                        </svg>
+                                    </span>
+                                    <span class="mr-2 2xl:mr-3 md:text-base lg:text-lg 2xl:text-[22px]">ساعت هوشمند</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--desktop filters-->
+                    <div class="mb-2">
+                        <Filter></Filter>
+                    </div>
+                </div>
             </div>
             <!--desktop sort bar-->
             <div class="hidden md:block col-span-9">
                 <div class=" bg-white h-full flex px-2 items-center gap-x-6 text-gray-400 rounded-md">
                     <!--sort icon-->
-                    <div class="bg-orange-100 rounded-md p-2 flex justify-center items-center -ml-3 -mr-0.5">
+                    <div class="bg-orange-100 rounded-md md:p-1 lg:p-2 flex justify-center items-center -ml-3 -mr-0.5">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            class="w-7 h-7 stroke-orange-400">
+                            class="md:w-6 md:h-6 lg:w-7 lg:h-7 stroke-orange-400">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0l-3.75-3.75M17.25 21L21 17.25" />
                         </svg>
@@ -69,19 +141,66 @@
                     </DesktopSortTabItem>
                     <DesktopSortTabItem @click="sortTab = 4" :active="sortTab === 4" title="پربازدید ترین">
                     </DesktopSortTabItem>
+
+                    <!--cart icon-->
+                    <NuxtLink :to="{ name: 'cart' }" class="flex-auto flex justify-end relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-slate-800" viewBox="0 0 576 512">
+                            <path
+                                d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                        </svg>
+                        <div v-if="store.cart.length > 0"
+                            class="w-5 h-5 flex items-center justify-center bg-orange-500 rounded-full absolute -top-2 left-4 text-xs text-white font-medium">
+                            {{ numberFormat(store.cart.length) }}
+                        </div>
+                    </NuxtLink>
                 </div>
             </div>
             <!--products-->
-            <div class="md:col-span-9 col-span-12"> <!--products-->
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-6 pt-5 sm:gap-x-4 sm:gap-y-8">
+            <div class="col-span-12 md:col-span-9 mb-16 md:mb-6 2xl:mb-16"> <!--products-->
+                <div
+                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-6 md:pt-3 lg:pt-5 sm:gap-x-4 sm:gap-y-8">
                     <!--single product-->
-                    <template v-for="(item, index) in productsArray" :key="index">
+                    <template v-for="(item, index) in productsArray || []" :key="index">
                         <product :productObj="item"></product>
                     </template>
                 </div>
             </div>
         </div>
+
+        <!--pagination-->
+        <div class="md:flex items-center justify-center hidden mb-20 xl:mb-28">
+            <pagination :total-pages="myPaginate.totalPages" :total="myPaginate.total" :per-page="myPaginate.perPage"
+                :current-page="myPaginate.currentPage" :has-more-pages="myPaginate.hasMorePages" @pagechanged="showMore">
+            </pagination>
+        </div>
+
+
+        <!--mobile bottom navigation-->
+        <MobileBottomNavigation></MobileBottomNavigation>
+
+        <!--mobile filter modal-->
+        <ClientOnly>
+            <BaseModal :show="showModal" @close-modal="closeModal()">
+                <div
+                    class="fixed z-10 bottom-0 max-h-[500px] rounded-t-3xl shadow-[0_-4px_8px_0px_rgba(0,0,0,0.1)] overflow-y-auto right-0 left-0 w-full bg-stone-100 p-6 sm:p-8">
+                    <div class="mb-10 w-[85%] sm:w-[70%]">
+                        <Filter></Filter>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button @click="showModal = false"
+                            class="w-[45%] p-2 text-center text-stone-50 bg-orange-600 rounded text-base sm:text-lg border-2 border-orange-600">تایید</button>
+                        <button @click="showModal = false"
+                            class="w-[45%] p-2 text-center bg-orange-100 text-orange-600 rounded text-base sm:text-lg border-2 border-orange-600">لغو
+                            فیلتر</button>
+                    </div>
+                </div>
+            </BaseModal>
+        </ClientOnly>
+
     </div><!--body-->
+
+    <!--footer-->
+    <Footer></Footer>
 
 
 
@@ -119,16 +238,44 @@ const list_items = ['Account', 'Support', 'Settings'];
 <!--digirize App-->
 <script setup>
 import { numberFormat } from "~/helpers/formatHelper";
-const sortTab = ref(1);
-// const selectedColor = ref('slate');
-const productInstance = {
-    colors: ['#4f46e5', '#facc15', '#fb923c', '#0f172a'],
-    selectedColor: '#0f172a',
-    imgSrc: '/images/apple-watch-7.png',
-    tag: 'اپل',
-    title: 'ساعت هوشمند اپل سر 6',
-    price: 148632659,
+import { useCartStore } from '~/store/cart.store';
+import productsArray from '~/helpers/dataBase.js'
+
+onMounted(() => {
+    window.addEventListener('resize', handleResize);
+});
+
+function handleResize() {
+    window.matchMedia('(min-width: 768px)').matches ? showModal.value = false : '';
 }
 
-const productsArray = [productInstance, productInstance, productInstance, productInstance, productInstance, productInstance]
+onUnmounted(() => {
+    window.removeEventListener('resize', handleResize)
+});
+
+const store = useCartStore();
+
+const sortTab = ref(1);
+// const selectedColor = ref('slate');
+
+//pagination
+const page = ref(0);
+const myPaginate = reactive({
+    currentPage: 1,
+    totalPages: 20,
+    total: 200,
+    perPage: 10,
+    hasMorePages: true,
+});
+
+function showMore(p) {
+    page.value = p;
+    myPaginate.currentPage = p;
+}
+
+const showModal = ref(false)
+
+function closeModal() {
+    showModal.value = false
+}
 </script>
