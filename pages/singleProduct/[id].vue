@@ -326,7 +326,7 @@
                 class="col-span-12 min-h-[300px] lg:min-h-[350px] 2xl:min-h-[400px]  md:col-span-9 w-full bg-white rounded-lg flex flex-col md:flex-row items-center justify-center p-5  md:p-10 md:gap-x-10 mt-2 md:mt-0">
                 <div class="w-[70%] sm:w-[50%] lg:w-[40%] xl:w-[35%]">
                     <video class="w-full" autoplay loop>
-                        <source src="~/public/videos/126985-product-not-found.mp4" type="video/mp4">
+                        <source src="~/assets/videos/126985-product-not-found.mp4" type="video/mp4">
                     </video>
                 </div>
                 <div class="w-full md:w-1/2 flex flex-col items-center gap-y-12 lg:gap-y-16 xl:gap-y-20 my-7 md:my-0">
@@ -351,7 +351,7 @@
         <div v-if="product"
             class="md:hidden sticky bottom-0 left-0 right-0 w-full bg-white z-10 flex justify-around py-3 rounded-t-lg shadow-[0_-4px_8px_0px_rgba(0,0,0,0.1)]">
             <Button @click="addOrRemove()"
-                class="flex items-center justify-center cursor-pointer bg-orange-500 text-stone-50  text-lg  rounded w-3/5">
+                class="flex items-center justify-center cursor-pointer bg-orange-500 text-stone-50 text-base sm:text-lg  rounded w-[50%]">
                 اضافه به سبد
                 خرید</Button>
             <div class="flex flex-col text-stone-800 items-end">

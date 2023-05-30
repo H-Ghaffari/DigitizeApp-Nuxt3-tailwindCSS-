@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="flex flex-col items-end w-1/4">
-                <img class="aspect-w-1 mb-4" src="/images/map.png">
+                <img class="aspect-w-1 mb-4" :src="getImageAbsolutePath('map.png')">
                 <div class="flex justify-center ml-4">
                     <!-- <p>{{ numberFormat(021 - 123456) }}</p> -->
                     <div class="flex flex-col items-end xl:text-lg md:text-base 2xl:text-lg">
@@ -50,4 +50,5 @@
 
 <script setup>
 import { numberFormat } from "~/helpers/formatHelper";
+import getImageAbsolutePath from "~/helpers/getImageAbsolutePath.js";
 </script>

@@ -15,8 +15,7 @@
                     </NuxtLink>
                 </li>
                 <li class="flex-auto">
-                    <NuxtLink to="/category"
-                        class="disabled flex items-center justify-center  gap-x-2 py-2 w-full text-gray-400">
+                    <NuxtLink to="" class="disabled flex items-center justify-center  gap-x-2 py-2 w-full text-gray-400">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8">
                                 <g fill="currentColor">
@@ -40,8 +39,7 @@
                     </NuxtLink>
                 </li>
                 <li class="flex-auto">
-                    <NuxtLink to="/interests"
-                        class="disabled flex items-center justify-center gap-x-2 py-2 w-full text-gray-400 ">
+                    <NuxtLink to="" class="disabled flex items-center justify-center gap-x-2 py-2 w-full text-gray-400 ">
                         <span class="pt-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="29" height="25" fill="currentColor">
                                 <path

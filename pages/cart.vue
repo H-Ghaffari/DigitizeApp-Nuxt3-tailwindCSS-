@@ -45,7 +45,7 @@
                             <video
                                 class="w-10/12 md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px] 2xl:w-[350px] 2xl:h-[350px]"
                                 autoplay loop>
-                                <source src="~/public/videos/sad-empty-box.mp4" type="video/mp4">
+                                <source src="~/assets/videos/sad-empty-box.mp4" type="video/mp4">
                             </video>
                         </div>
                     </div>

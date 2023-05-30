@@ -3,10 +3,9 @@
   </NuxtPage>
   <div id="modals" class="relative z-[999]"></div>
 </template>
-<script setup>
 
-import { useCartStore } from './store/cart.store';
-import { onMounted } from 'vue';
+<script setup>
+import { useCartStore } from '~/store/cart.store'
 
 useHead({
   title: 'Digitize App',

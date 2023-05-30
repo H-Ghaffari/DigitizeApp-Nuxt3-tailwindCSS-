@@ -1,19 +1,21 @@
+<!-- https://nuxt.com/docs/getting-started/error-handling#example -->
+<!-- add error.vue to content of tailwind.config.ts -->
 <template>
     <div
         class="container mx-auto 2xl:max-w-screen-2xl min-w-screen min-h-screen bg-yellow-500 flex items-start p-10 sm:p-14 lg:p-20 overflow-hidden relative">
-        <template v-if="error.statusCode == 404">
+        <template v-if="error.statusCode === 404">
             <div
                 class="flex-1 min-h-full min-w-full rounded-3xl bg-white shadow-xl p-7 lg:p-10 relative flex flex-col md:flex-row items-center justify-center md:justify-between">
                 <div class="w-[90%] sm:w-[70%] md:w-[50%] xl:w-[40%] mb-6 sm:mb-8 md:mb-0">
                     <!-- <img src="~/public/images/404.png" alt=""> -->
                     <video class="w-full" autoplay loop>
-                        <source src="~/public/videos/Sequence.mp4" type="video/mp4">
+                        <source src="~/assets/videos/Sequence.mp4" type="video/mp4">
                     </video>
                 </div>
-                <div class="w-full md:w-1/2">
-                    <!-- <div class="mb-10 lg:mb-20">
-                    logo
-                </div> -->
+            <div class="w-full md:w-1/2">
+                <!-- <div class="mb-10 lg:mb-20">
+                        logo
+                                                    </div> -->
                     <div class="mb-10 md:mb-20">
                         <h1 dir="rtl"
                             class="font-black uppercase text-xl sm:text-2xl sm:leading-[50px] text-center leading-10 lg:text-4xl lg:leading-[65px] 2xl:text-5xl 2xl:leading-[90px] text-orange-600 mb-10 xl:mb-20">
@@ -36,18 +38,14 @@
                 </div>
             </div>
         </template>
-        <!-- <div
-            class="w-64 md:w-96 h-96 md:h-full bg-blue-400 bg-opacity-30 absolute -top-64 md:-top-96 right-20 md:right-28 rounded-full pointer-events-none -rotate-45 transform">
-        </div>
-        <div
-            class="w-96 h-full bg-lime-600 bg-opacity-20 absolute -bottom-96 right-96 rounded-full pointer-events-none -rotate-45 transform">
-        </div> -->
     </div>
 </template>
 
 <script setup>
-
-const props = defineProps(['error']);
+const props = defineProps({
+    error: Object
+})
+// const props = defineProps(['error']);
 // console.log(props.error.statusCode);
 // console.log(props.error.statusMessage);
 
@@ -59,4 +57,8 @@ function handleError() {
     clearError({ redirect: '/' });
 }
 </script>
+
+
+
+
 

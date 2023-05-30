@@ -8,5 +8,18 @@ export default defineNuxtConfig({
     },
   },
 
+  //https://favicon.io/favicon-converter/
+  app: {
+    head: {
+      link: [{ rel: "icon", type: "image/png", href: "digitize.png" }],
+    },
+  },
+
+  // vue: {
+  //   compilerOptions: {
+  //     isCustomElement: (tag) => ["lite-youtube"].includes(tag),
+  //   },
+  // },
+
   modules: ["@pinia/nuxt"],
 });
